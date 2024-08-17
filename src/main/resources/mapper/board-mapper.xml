@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Board">
+    <insert id="save" parameterType="board" useGeneratedKeys="true" keyProperty="id">
+    <!-- repo 에서 board.save = name이 Board고 id 가 save인 태그를 호출하겟다 라는 뜻. -->
+    <!-- parmetertype 은 mybast-config 에 alias="board" 를 이용하기 위해 설정해놓는 것  -->
+        insert into board_table(boardTitle, boardWriter, boardPass, boardContents)
+        values(#{boardTitle}, #{boardWriter}, #{boardPass}, #{boardContents})
+    </insert>
+    <select id="findAll" resultType="board">
+        select * from board_table order by id desc
+<!--        select id, boardTitle, boardWriter, boardHits, date_format(createdAt, "%Y-%m-%d") as createdAt-->
+<!--        from board_table order by id desc 주석 방법을 써도 상관없음-->
+    </select>
+    <update id="updateHits" parameterType="Long">
+        update board_table set boardHits=boardHits+1 where id=#{id}
+    </update>
+    <select id="findById" parameterType="Long" resultType="board">
+        select id, boardTitle, boardWriter, boardPass, boardContents, boardHits,
+        date_format(createdAt, "%Y-%m-%d %H:%i:%s") as createdAt
+        from board_table where id=#{id}
+    </select>
+    <update id="update">
+        update board_table set boardTitle=#{boardTitle}, boardContents=#{boardContents} where id=#{id}
+        <!--  {id} 에 해당하는 것만 수정하겠다.      -->
+    </update>
+    <delete id="delete" parameterType="Long">
+        delete from board_table where id=#{id}
+        <!--  delete 에선 * 쓰면 안됨.       -->
+    </delete>
+</mapper>

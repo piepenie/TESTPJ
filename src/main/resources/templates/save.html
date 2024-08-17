@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>save</title>
+</head>
+<body>
+<form action="save" method="post">
+    <!-- 이 부분이 post 로 지정되어있고, 엑션에 save 라고 적혀있기때문에 postMapping 의 save 를 사용할 수 있는거   -->
+    제목 : <input type="text" name="boardTitle"><br>
+    작성자 : <input type="text" name="boardWriter"><br>
+    비밀번호 : <input type="text" name="boardPass"><br>
+    내용 : <textarea name="boardContents" cols="30" rows="10"></textarea>
+    <input type="submit" value="작성">
+</form>
+</body>
+</html>
+
+<!-- name = dto 필드의 이름이 같아야됨 ex) boardTitle 경우 BoardDto 에서 boardTitle 과 같아야됨 컨트롤러에서 잘 받기위해서 -->

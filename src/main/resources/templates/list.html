@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    table, tr, td, th {
+        border: 3px solid black;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 10px;
+    }
+  </style>
+<body>
+<a href="/save">글쓰기</a>
+<table>
+  <tr>
+    <th>번호</th>
+    <th>제목</th>
+    <th>작성자</th>
+    <th>작성시간</th>
+    <th>조회수</th>
+  </tr>
+  <tr th:each="board: ${boardList}">
+<!-- tr th:each 는 반복문 처럼 쓸 수 있는거 ${} 는 컨트롤러의 모델어트리뷰트의 어트뷰네임과 일치해야함. -->
+    <td th:text="${board.id}"></td>
+    <td>
+      <a th:text="${board.boardTitle}" th:href="@{|/${board.id}|}"></a>
+        <!-- 경로에 링크 거는 방법 -->
+    </td>
+    <td th:text="${board.boardWriter}"></td>
+    <td th:text="${board.createdAt}"></td>
+    <td th:text="${board.boardHits}"></td>
+  </tr>
+</table>
+</body>
+</html>
